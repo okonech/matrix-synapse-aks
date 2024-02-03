@@ -41,8 +41,14 @@ kubectl apply -f ./config/synapse-deployment.yaml
 # Create an nginx ingress controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 
+# Create a namespace for cert-manager
+kubectl create namespace cert-manager
+
 # Install cert-manager CRDs
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.crds.yaml
+
+# Install cert-manager
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.yaml
 
 # Install cluster issuer for Let's Encrypt
 kubectl apply -f ./config/letsencrypt-issuer.yaml
