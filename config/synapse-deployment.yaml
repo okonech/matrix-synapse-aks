@@ -20,32 +20,36 @@ spec:
           configMap:
             name: synapse-config
       containers:
-      - name: synapse
-        image: matrixdotorg/synapse:latest
-        resources:
-          limits:
-            cpu: "1"
-            memory: "1Gi"
-          requests:
-            cpu: "0.5"
-            memory: "512Mi"
-        volumeMounts:
-        - name: synapse-data
-          mountPath: /data
-        - name: synapse-config
-          mountPath: /config
-        env:
-        - name: SYNAPSE_CONFIG_PATH
-          value: "/config/homeserver.yaml"
-        ports:
-        - containerPort: 8008
+        - name: synapse
+          image: matrixdotorg/synapse:latest
+          volumeMounts:
+            - name: synapse-data
+              mountPath: /data
+            - name: synapse-config
+              mountPath: /config
+          env:
+            - name: SYNAPSE_CONFIG_PATH
+              value: "/config/homeserver.yaml"
+          ports:
+            - containerPort: 8008
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: synapse
 spec:
-  ports:
-  - port: 5432
+  type: LoadBalancer
   selector:
-    app: postgres
+    app: synapse
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8008
+

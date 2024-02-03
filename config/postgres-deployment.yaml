@@ -21,16 +21,16 @@ spec:
           value: synapseuser
         - name: POSTGRES_PASSWORD
           value: synapsepassword
-        resources:
-          limits:
-            cpu: "1"
-            memory: "1Gi"
-          requests:
-            cpu: "100m"
-            memory: "256Mi"
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
