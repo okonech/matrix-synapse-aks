@@ -17,7 +17,7 @@ domain="synapse.alex.com"
 az group create --name $resource_group --location $location
 
 # Create an AKS cluster
-az aks create --resource-group $resource_group --name $cluster_name --node-count 1 --enable-addons monitoring --generate-ssh-keys
+az aks create --resource-group $resource_group --name $cluster_name --node-count 2 --enable-addons monitoring --generate-ssh-keys
 
 # Get the credentials for the AKS cluster
 az aks get-credentials --resource-group $resource_group --name $cluster_name
