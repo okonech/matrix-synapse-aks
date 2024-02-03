@@ -1,14 +1,17 @@
 # Description: This script is used to initialize a synapse server on Azure Kubernetes Service (AKS)
-# This script will create a resource group, AKS cluster, and deploy the postgres database on the AKS cluster
+# This script will create a resource group, AKS cluster, DNS zone, and deploy the postgres database on the AKS cluster.
+# It will also deploy the synapse server and create an A record for the synapse server in the DNS zone.
+
+# Prerequisites:
+# - Azure CLI
+# - kubectl
+# - Logged into Azure CLI with 'az login'
 
 # Set variables
 resource_group="matrix-synapse-server"
 cluster_name="matrix-synapse-cluster"
 location="eastus2"
 domain="synapse.alex.com"
-
-# Login to Azure
-az login
 
 # Create a resource group
 az group create --name $resource_group --location $location
