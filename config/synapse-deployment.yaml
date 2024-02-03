@@ -12,6 +12,13 @@ spec:
       labels:
         app: synapse
     spec:
+      initContainers:
+        - name: fix-perms
+          image: alpine
+          command: ['sh', '-c', 'chown -R 991:991 /data && chmod -R 700 /data']
+          volumeMounts:
+            - name: synapse-data
+              mountPath: /data
       volumes:
         - name: synapse-data
           persistentVolumeClaim:
