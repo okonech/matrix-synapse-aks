@@ -29,10 +29,10 @@ kubectl apply -f ./config/postgres-deployment.yaml
 kubectl create configmap synapse-config --from-file=homeserver.yaml=./config/homeserver.yaml
 
 # Create a persistent volume claim for the synapse server (for media storage)
-kubectl apply -f synapse-pvc.yaml
+kubectl apply -f ./config/synapse-pvc.yaml
 
 # Deploy the synapse server and service
-kubectl apply -f synapse-deployment.yaml
+kubectl apply -f ./config/synapse-deployment.yaml
 
 
 az network dns zone create --name $domain --resource-group $resource_group
