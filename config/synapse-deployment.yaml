@@ -41,7 +41,7 @@ spec:
             - name: SYNAPSE_CONFIG_PATH
               value: "/config/homeserver.yaml"
             - name: SYNAPSE_SERVER_NAME
-              value: "nginx-ingress.okonech.net"
+              value: "synapse.okonech.net"
             - name: SYNAPSE_REPORT_STATS
               value: "no"
             - name: POSTGRES_DB

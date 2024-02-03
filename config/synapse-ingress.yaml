@@ -19,5 +19,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - nginx-ingress.okonech.net
+    - synapse.okonech.net
     secretName: synapse-tls-cert
