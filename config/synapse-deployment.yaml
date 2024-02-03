@@ -22,6 +22,9 @@ spec:
       containers:
         - name: synapse
           image: matrixdotorg/synapse:latest
+          securityContext:
+            runAsUser: 991
+            runAsGroup: 991
           volumeMounts:
             - name: synapse-data
               mountPath: /data
