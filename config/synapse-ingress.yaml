@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: synapse.alex.com
+  - host: nginx-ingress.okonech.net
     http:
       paths:
       - path: /
@@ -19,5 +19,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - synapse.alex.com
+    - nginx-ingress.okonech.net
     secretName: synapse-tls-cert
