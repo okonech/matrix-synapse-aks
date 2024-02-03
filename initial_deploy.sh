@@ -8,10 +8,11 @@
 # - Logged into Azure CLI with 'az login'
 
 # Set variables
+dns_resource_group="domain-hosting"
 resource_group="matrix-synapse-server"
 cluster_name="matrix-synapse-cluster"
 location="eastus2"
-domain="synapse.alex.com"
+domain="okonech.net"
 
 # Create a resource group
 az group create --name $resource_group --location $location
@@ -48,9 +49,6 @@ kubectl apply -f ./config/letsencrypt-issuer.yaml
 
 # Deploy the ingress for the synapse server
 kubectl apply -f ./config/synapse-ingress.yaml
-
-# Create a DNS zone for the synapse server
-az network dns zone create --name $domain --resource-group $resource_group
 
 # store the external IP address of the synapse server
 external_ip=$(kubectl get svc synapse -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
