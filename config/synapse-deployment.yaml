@@ -67,7 +67,7 @@ kind: Service
 metadata:
   name: synapse
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: synapse
   ports:

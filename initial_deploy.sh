@@ -56,17 +56,11 @@ kubectl apply -f ./config/letsencrypt-issuer.yaml
 # Deploy the ingress for the synapse server
 kubectl apply -f ./config/synapse-ingress.yaml
 
-# store the external IP address of the synapse server
-external_ip=$(kubectl get svc synapse -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-
 # store the external IP address of the ingress controller
 ingress_external_ip=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
-# create an A record for the synapse server
-az network dns record-set a add-record --resource-group $resource_group --zone-name $domain --record-set-name synapse --ipv4-address $external_ip
-
 # Create an A record for the ingress controller
-az network dns record-set a add-record --resource-group $resource_group --zone-name $domain --record-set-name nginx-ingress --ipv4-address $ingress_external_ip
+az network dns record-set a add-record --resource-group $resource_group --zone-name $domain --record-set-name synapse --ipv4-address $ingress_external_ip
 
 
 
