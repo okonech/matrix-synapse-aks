@@ -37,7 +37,19 @@ kubectl apply -f ./config/synapse-pvc.yaml
 # Deploy the synapse server and service
 kubectl apply -f ./config/synapse-deployment.yaml
 
+# Create an nginx ingress controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 
+# Install cert-manager CRDs
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.crds.yaml
+
+# Install cluster issuer for Let's Encrypt
+kubectl apply -f ./config/letsencrypt-issuer.yaml
+
+# Deploy the ingress for the synapse server
+kubectl apply -f ./config/synapse-ingress.yaml
+
+# Create a DNS zone for the synapse server
 az network dns zone create --name $domain --resource-group $resource_group
 
 # store the external IP address of the synapse server
