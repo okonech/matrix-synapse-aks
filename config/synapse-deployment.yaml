@@ -41,7 +41,10 @@ spec:
             - name: SYNAPSE_CONFIG_PATH
               value: "/config/homeserver.yaml"
             - name: SYNAPSE_SERVER_NAME
-              value: "synapse.okonech.net"
+              valueFrom:
+                configMapKeyRef:
+                  name: synapse-server-config
+                  key: SYNAPSE_SERVER_NAME
             - name: SYNAPSE_REPORT_STATS
               value: "no"
             - name: POSTGRES_DB

@@ -94,3 +94,27 @@ export REGISTRATION_SHARED_SECRET="m8k/rUrZd3KEc68CS9b6zHA15nT1vjHhnamDY/refLo="
 export RECAPTCHA_PUBLIC_KEY="xxxxxx"
 export RECAPTCHA_PRIVATE_KEY="yyyyy"
 ```
+
+## Troubleshooting
+
+Sometimes the initial deployment script will show errors such as
+
+```bash
+Error from server (InternalError): error when creating "./config/letsencrypt-issuer.yaml": Internal error occurred: failed calling webhook "webhook.cert-manager.io": failed to call webhook: Post "https://cert-manager-webhook.cert-manager.svc:443/validate?timeout=30s": no endpoints available for service "cert-manager-webhook"
+Error from server (InternalError): error when creating "./config/synapse-ingress.yaml": Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": failed to call webhook: Post "https://ingress-nginx-controller-admission.ingress-nginx.svc:443/networking/v1/ingresses?timeout=10s": no endpoints available for service "ingress-nginx-controller-admission"
+```
+
+which will result in a self signed certificate being used for the synapse server. This is not ideal. To fix this, you will want to run:
+
+```bash
+# fully uninstall and reinstall cert-manager
+./cert-manager_full_reinstall.sh
+# reinstall issuer due to creation error
+kubectl apply -f ./config/letsencrypt-issuer.yaml
+# Redeploy ingress to use the new issuer
+./utils/deploy_synapse_ingress.sh
+# (Optional) manually create a certificate for the synapse server
+./utils/deploy_manual_cert.sh
+```
+
+Which will delete the cert-manager resources and reinstall them, redeploy the issuer, then redeploy the ingress to use the new issuer.
