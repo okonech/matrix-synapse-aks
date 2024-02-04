@@ -39,7 +39,7 @@ kubectl apply -f ./config/postgres-deployment.yaml
 kubectl create configmap synapse-config --from-file=homeserver.yaml=./tmp/homeserver.yaml
 
 # Deploy the configmap for the synapse server settings (server name, etc.)
-./utils/deploy_synapse_ingress.sh
+./utils/deploy_server_config.sh
 
 # Create a persistent volume claim for the synapse server (for media storage)
 kubectl apply -f ./config/synapse-pvc.yaml
