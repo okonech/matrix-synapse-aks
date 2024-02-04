@@ -1,6 +1,6 @@
 # matrix-synapse-aks
 
-Deployment of a matrix synapse server on Azure Kubernetes Service. This will use sensible defaults, creates a postgres database, stores secrets in kube secrets, and sets up a recaptcha v2 check for registration.
+Deployment of a matrix synapse server on Azure Kubernetes Service. This uses sensible preconfigured defaults, creates a postgres database, stores secrets in kube secrets, and sets up a recaptcha v2 check for registration.
 
 This is significantly cheaper than running a synapse server on a cloud hosted VM, and it is easier to manage.
 
