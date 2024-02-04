@@ -18,6 +18,10 @@ The DNS and the domain live in the same resource group. We will use the resource
    - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
    - [azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
    - [curl](https://curl.se/download.html)
+3. You will need to acquire recaptcha v2 keys from [Google](https://www.google.com/recaptcha/admin).
+   - Make sure to select the v2 'I'm not a robot' checkbox.
+   - Save off the site key for use in the RECAPTCHA_PUBLIC_KEY environment variable.
+   - Save off the secret key for use in the RECAPTCHA_PRIVATE_KEY environment variable.
 
 ## Deployment steps
 
