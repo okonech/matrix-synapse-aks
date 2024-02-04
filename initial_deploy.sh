@@ -24,6 +24,9 @@ az aks create --resource-group $resource_group --name $cluster_name --node-count
 # Get the credentials for the AKS cluster
 az aks get-credentials --resource-group $resource_group --name $cluster_name
 
+# Deploy storage class for the persistent volume claims to persist data
+kubectl apply -f ./config/storage-class-def.yaml
+
 # Deploy persistent volume claim for the postgres database
 kubectl apply -f ./config/postgres-pvc.yaml
 
