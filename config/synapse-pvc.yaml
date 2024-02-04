@@ -5,6 +5,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: azure-disk-retained
   resources:
     requests:
       storage: 5Gi
