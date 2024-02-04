@@ -57,7 +57,7 @@ kubectl apply -f ./config/synapse-ingress.yaml
 ingress_external_ip=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
 # Create an A record for the ingress controller
-az network dns record-set a add-record --resource-group $RESOURCE_GROUP --zone-name $DOMAIN --record-set-name synapse --ipv4-address $ingress_external_ip
+az network dns record-set a add-record --resource-group $DNS_RESOURCE_GROUP --zone-name $DOMAIN --record-set-name synapse --ipv4-address $ingress_external_ip
 
 
 
