@@ -38,6 +38,9 @@ kubectl apply -f ./config/postgres-deployment.yaml
 # Create a configmap for the synapse server
 kubectl create configmap synapse-config --from-file=homeserver.yaml=./tmp/homeserver.yaml
 
+# Deploy the configmap for the synapse server settings (server name, etc.)
+./utils/deploy_synapse_ingress.sh
+
 # Create a persistent volume claim for the synapse server (for media storage)
 kubectl apply -f ./config/synapse-pvc.yaml
 
@@ -54,7 +57,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 kubectl apply -f ./config/letsencrypt-issuer.yaml
 
 # Deploy the ingress for the synapse server
-kubectl apply -f ./config/synapse-ingress.yaml
+./utils/deploy_synapse_ingress.sh
 
 # store the external IP address of the ingress controller
 ingress_external_ip=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
