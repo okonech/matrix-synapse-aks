@@ -1,17 +1,19 @@
 # matrix-synapse-aks
 
-Deployment of a matrix synapse server on aks.
+Deployment of a matrix synapse server on aks. This will use sensible defaults, creates a postgres database, stores secrets in kube secrets, and sets up a recaptcha v2 check for registration.
+
+This is significantly cheaper than running a synapse server on a cloud hosted VM, and it is easier to manage.
 
 ## Prerequisites
 
 1. You will need a domain name and access to the DNS zone for that domain.
 I chose to use Azure DNS for my domain, but you can use any DNS provider.
-![domain hosting](content/domain.png)
+![domain hosting](https://github-production-user-asset-6210df.s3.amazonaws.com/36140593/302076208-9e9ad36d-17f5-42f2-84b3-6898fa0e0220.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240204T040618Z&X-Amz-Expires=300&X-Amz-Signature=c0f2e72d9e7d52215ffec17a6cadcc9349d54f5baf6c108b7224af97af583048&X-Amz-SignedHeaders=host&actor_id=36140593&key_id=0&repo_id=752121039)
 The DNS and the domain live in the same resource group. We will use the resource group name for the DNS_RESOURCE_GROUP in the `ENV.sh` file.
-![domain resource group](content/domain-rg.png)
+![domain resource group](https://github-production-user-asset-6210df.s3.amazonaws.com/36140593/302076191-2cfd341d-2deb-4c2d-adda-44b5cb324d5a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240204%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240204T040554Z&X-Amz-Expires=300&X-Amz-Signature=b8a7e5a77196a01431d769a529b569dfd72ed81e44bf0e553b7545877f85754f&X-Amz-SignedHeaders=host&actor_id=36140593&key_id=0&repo_id=752121039)
 
-2. You will need an Azure subscription and access to create resources in that subscription.
-3. You will need to have the following tools installed:
+1. You will need an Azure subscription and access to create resources in that subscription.
+2. You will need to have the following tools installed:
    - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
    - [azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
    - [curl](https://curl.se/download.html)

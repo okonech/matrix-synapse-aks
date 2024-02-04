@@ -45,11 +45,17 @@ spec:
             - name: SYNAPSE_REPORT_STATS
               value: "no"
             - name: POSTGRES_DB
-              value: "synapse"
+              value: synapsedb
             - name: POSTGRES_USER
-              value: "synapseuser"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: user
             - name: POSTGRES_PASSWORD
-              value: "synapsepassword"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: password
             - name: POSTGRES_HOST
               value: "postgres"
           ports:

@@ -18,9 +18,15 @@ spec:
         - name: POSTGRES_DB
           value: synapsedb
         - name: POSTGRES_USER
-          value: synapseuser
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: user
         - name: POSTGRES_PASSWORD
-          value: synapsepassword
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: password
         - name: PGDATA
           value: "/var/lib/postgresql/data/pgdata"
         - name: LC_COLLATE

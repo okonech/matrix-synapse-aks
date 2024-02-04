@@ -26,6 +26,9 @@ kubectl apply -f ./config/storage-class-def.yaml
 # Deploy persistent volume claim for the postgres database
 kubectl apply -f ./config/postgres-pvc.yaml
 
+# Deploy the postgres secret
+./utils/deploy_pg_secret.sh
+
 # Deploy the postgres database and service
 kubectl apply -f ./config/postgres-deployment.yaml
 
