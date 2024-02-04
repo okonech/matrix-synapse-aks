@@ -8,21 +8,17 @@
 # - curl
 # - Logged into Azure CLI with 'az login'
 
-# Set variables
-dns_resource_group="domain-hosting"
-resource_group="matrix-synapse-server"
-cluster_name="matrix-synapse-cluster"
-location="eastus2"
-domain="okonech.net"
+# Source environment variables
+source ./ENV.sh
 
 # Create a resource group
-az group create --name $resource_group --location $location
+az group create --name $RESOURCE_GROUP --location $LOCATION
 
 # Create an AKS cluster
-az aks create --resource-group $resource_group --name $cluster_name --node-count 2 --enable-addons monitoring --generate-ssh-keys
+az aks create --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME --node-count 2 --enable-addons monitoring --generate-ssh-keys
 
 # Get the credentials for the AKS cluster
-az aks get-credentials --resource-group $resource_group --name $cluster_name
+az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
 
 # Deploy storage class for the persistent volume claims to persist data
 kubectl apply -f ./config/storage-class-def.yaml
@@ -33,8 +29,11 @@ kubectl apply -f ./config/postgres-pvc.yaml
 # Deploy the postgres database and service
 kubectl apply -f ./config/postgres-deployment.yaml
 
+# Generate a homeserver.yaml file using the environment variables
+./utils/generate_homeserver_config.sh
+
 # Create a configmap for the synapse server
-kubectl create configmap synapse-config --from-file=homeserver.yaml=./config/homeserver.yaml
+kubectl create configmap synapse-config --from-file=homeserver.yaml=./tmp/homeserver.yaml
 
 # Create a persistent volume claim for the synapse server (for media storage)
 kubectl apply -f ./config/synapse-pvc.yaml
@@ -58,7 +57,7 @@ kubectl apply -f ./config/synapse-ingress.yaml
 ingress_external_ip=$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 
 # Create an A record for the ingress controller
-az network dns record-set a add-record --resource-group $resource_group --zone-name $domain --record-set-name synapse --ipv4-address $ingress_external_ip
+az network dns record-set a add-record --resource-group $RESOURCE_GROUP --zone-name $DOMAIN --record-set-name synapse --ipv4-address $ingress_external_ip
 
 
 
