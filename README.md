@@ -66,6 +66,19 @@ This script will take a while to run, as it creates the AKS cluster and the othe
 All necessary resources will be created in the resource group specified in the `ENV.sh` file.
 Sensible defaults are used for the AKS cluster, but you can change them in the configuration files if you want.
 
+You are now done!
+
+![running server](https://github.com/okonech/matrix-synapse-aks/assets/36140593/a34001cd-ce7d-44b9-841b-d3da54ca45ea)
+
+You can now register as normal on your server:
+
+![username entry](https://github.com/okonech/matrix-synapse-aks/assets/36140593/9f31cae5-2cb3-4aed-a040-4937b8b7d8b0)
+
+![captcha](https://github.com/okonech/matrix-synapse-aks/assets/36140593/43552835-6e69-4966-851f-fa740b1c695f)
+
+
+
+
 ## Example ENV.sh from my test environment
 
 All secrets included in this file are fake and should be replaced with your own.
