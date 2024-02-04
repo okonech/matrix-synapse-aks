@@ -10,15 +10,17 @@ This is significantly cheaper than running a synapse server on a cloud hosted VM
 I chose to use Azure DNS for my domain, but you can use any DNS provider.
 
 ![domain hosting](https://github.com/okonech/matrix-synapse-aks/assets/36140593/925fd9cd-a7f6-4cf7-b2b1-9fe775ef8ba7)
-The DNS and the domain live in the same resource group. We will use the resource group name for the DNS_RESOURCE_GROUP in the `ENV.sh` file.
+The DNS and the domain live in the same resource group. We will use the resource group name the DNS zone is in, for the DNS_RESOURCE_GROUP in the `ENV.sh` file.
 ![domain resource group](https://github.com/okonech/matrix-synapse-aks/assets/36140593/051852dd-2fe1-4917-91a4-e3f64b00fa4a)
 
-1. You will need an Azure subscription and access to create resources in that subscription.
-2. You will need to have the following tools installed:
+The scripts create the A record for the synapse server in the DNS zone, so you don't need to do that manually. If you are using a different DNS provider, you will need to create the A record manually as a final step.
+
+2. You will need an Azure subscription and access to create resources in that subscription.
+3. You will need to have the following tools installed:
    - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
    - [azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
    - [curl](https://curl.se/download.html)
-3. You will need to acquire recaptcha v2 keys from [Google](https://www.google.com/recaptcha/admin).
+4. You will need to acquire recaptcha v2 keys from [Google](https://www.google.com/recaptcha/admin).
    - Make sure to select the v2 'I'm not a robot' checkbox.
    - Save off the site key for use in the RECAPTCHA_PUBLIC_KEY environment variable.
    - Save off the secret key for use in the RECAPTCHA_PRIVATE_KEY environment variable.
